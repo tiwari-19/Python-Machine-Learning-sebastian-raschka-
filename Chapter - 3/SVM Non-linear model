@@ -1,0 +1,23 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jul 21 23:09:03 2017
+
+@author: ashish
+"""
+
+from Decision_Boundary import plot_decision_regions
+from Non_linear_data import X_xor, y_xor
+import matplotlib.pyplot as plt
+from sklearn.svm import SVC
+
+# try gamma = 0.1, 0.2, 0.3
+# on increasing the value of gamma we will have a softer decision boundary
+# high gamma model may fit perfectly but have high generalization error
+
+svm = SVC(kernel='rbf', random_state=0, gamma=0.2, C=10.0)
+svm.fit(X_xor, y_xor)
+plot_decision_regions(X_xor, y_xor, classifier=svm)
+plt.legend(loc='upper left')
+plt.title('SVM non-linear classification')
+plt.show()

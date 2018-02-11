@@ -1,0 +1,42 @@
+#!/usr/bin/env python2
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jul 22 11:47:05 2017
+
+@author: ashish
+"""
+
+from sklearn.cross_validation import train_test_split
+from Decision_Boundary import plot_decision_regions
+from sklearn.preprocessing import StandardScaler
+from sklearn.datasets import load_iris
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+iris = load_iris()
+X, y = iris.data[:, [2,3]], iris.target
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
+sc = StandardScaler()
+sc.fit(x_train)
+x_train_std = sc.transform(x_train)
+x_test_std = sc.transform(x_test)
+
+from sklearn.neighbors import KNeighborsClassifier
+knn = KNeighborsClassifier(n_neighbors=5,
+                           p=2,
+                           metric='minkowski')
+
+# p = 1, distance = Euclidean
+# p = 2, distance = Manhattan
+
+knn.fit(x_train_std, y_train)
+
+x_combine = np.vstack((x_train_std, x_test_std))
+y_combine = np.hstack((y_train, y_test))
+
+plot_decision_regions(x_combine, y_combine, classifier=knn, test_idx=range(105,150))
+plt.xlabel('petal length [standardized]')
+plt.ylabel('petal width [standardized]')
+plt.legend(loc='upper left')
+plt.show()
