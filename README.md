@@ -1,2 +1,2 @@
 # Python-Machine-Learning-sebastian-raschka-
-chapter wise python codes of the book Python Machine Learning by Sebastian Raschka
+chapter wise my own python codes of the book Python Machine Learning by Sebastian Raschka
